@@ -22,5 +22,4 @@ public class CategoryService {
         Optional <Category> obj = CategoryRepository.findById(id);
         return obj.get();
     }
-
 }

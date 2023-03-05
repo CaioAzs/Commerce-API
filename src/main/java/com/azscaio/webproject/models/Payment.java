@@ -1,57 +1,35 @@
 package com.azscaio.webproject.models;
 
-import java.io.Serializable;
 import java.time.Instant;
 
-import com.azscaio.webproject.models.enums.OrderStatus;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "tb_order")
-public class Order implements Serializable { 
-
+@Table (name = "tb_payment")
+public class Payment {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    //ADICIONAR JSON FORMAT, AULA ENTIDADE PEDIDO, DATAS COM INSTANT E PADRAO ISO 8601
     private Instant moment;
-    private Integer orderStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private User client;
+    @OneToOne
+    @MapsId
+    private Order order;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    private Payment payment;
-
-    public Payment getPayment() {
-        return payment;
+    public Payment(){
     }
 
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Order(){
-    }
-
-    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
-        super();
+    public Payment(Long id, Instant moment, Order order) {
         this.id = id;
         this.moment = moment;
-        setOrderStatus(orderStatus);;
-        this.client = client;
+        this.order = order;
     }
 
     public Long getId() {
@@ -70,21 +48,12 @@ public class Order implements Serializable {
         this.moment = moment;
     }
 
-    public User getClient() {
-        return client;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setClient(User client) {
-        this.client = client;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return OrderStatus.valueOf(orderStatus);
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        if (orderStatus != null)
-        this.orderStatus = orderStatus.getCode();
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
@@ -103,7 +72,7 @@ public class Order implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Order other = (Order) obj;
+        Payment other = (Payment) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -112,5 +81,5 @@ public class Order implements Serializable {
         return true;
     }
 
-
+    
 }

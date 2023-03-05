@@ -29,6 +29,5 @@ public class ProductController {
     public ResponseEntity<Product> findById(@PathVariable Long id){
         Product Product = ProductService.findById(id);
         return ResponseEntity.ok().body(Product);
-
     }
 }

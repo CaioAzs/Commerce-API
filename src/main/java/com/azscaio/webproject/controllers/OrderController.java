@@ -29,6 +29,5 @@ public class OrderController {
     public ResponseEntity<Order> findById(@PathVariable Long id){
         Order Order = OrderService.findById(id);
         return ResponseEntity.ok().body(Order);
-
     }
 }
