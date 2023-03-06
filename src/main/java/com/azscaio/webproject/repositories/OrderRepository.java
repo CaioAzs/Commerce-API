@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.azscaio.webproject.models.Order;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long>{
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

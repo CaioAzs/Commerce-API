@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.azscaio.webproject.models.Order;
 import com.azscaio.webproject.repositories.OrderRepository;
 
-
 @Service
 public class OrderService {
     @Autowired
@@ -19,8 +18,8 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order findById(Long id){
-        Optional <Order> obj = orderRepository.findById(id);
+    public Order findById(Long id) {
+        Optional<Order> obj = orderRepository.findById(id);
         return obj.get();
     }
 

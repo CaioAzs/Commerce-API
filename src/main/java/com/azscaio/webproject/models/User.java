@@ -14,8 +14,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table( name = "tb_user")
-public class User implements Serializable{
+@Table(name = "tb_user")
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class User implements Serializable{
         return orders;
     }
 
-    public User(){
+    public User() {
     }
 
     public User(Long id, String name, String email, String phone, String password) {

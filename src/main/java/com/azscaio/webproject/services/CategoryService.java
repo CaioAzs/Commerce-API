@@ -18,8 +18,8 @@ public class CategoryService {
         return CategoryRepository.findAll();
     }
 
-    public Category findById(Long id){
-        Optional <Category> obj = CategoryRepository.findById(id);
+    public Category findById(Long id) {
+        Optional<Category> obj = CategoryRepository.findById(id);
         return obj.get();
     }
 }

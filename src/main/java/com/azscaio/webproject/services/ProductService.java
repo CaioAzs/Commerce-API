@@ -10,7 +10,7 @@ import com.azscaio.webproject.models.Product;
 import com.azscaio.webproject.repositories.ProductRepository;
 
 @Service
-public class ProductService {   
+public class ProductService {
     @Autowired
     private ProductRepository ProductRepository;
 
@@ -18,8 +18,8 @@ public class ProductService {
         return ProductRepository.findAll();
     }
 
-    public Product findById(Long id){
-        Optional <Product> obj = ProductRepository.findById(id);
+    public Product findById(Long id) {
+        Optional<Product> obj = ProductRepository.findById(id);
         return obj.get();
     }
 

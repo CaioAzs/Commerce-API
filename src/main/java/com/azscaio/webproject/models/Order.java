@@ -2,6 +2,8 @@ package com.azscaio.webproject.models;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.azscaio.webproject.models.enums.OrderStatus;
 
@@ -11,20 +13,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "tb_order")
-public class Order implements Serializable { 
+public class Order implements Serializable {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    //ADICIONAR JSON FORMAT, AULA ENTIDADE PEDIDO, DATAS COM INSTANT E PADRAO ISO 8601
+
+    // ADICIONAR JSON FORMAT, AULA ENTIDADE PEDIDO, DATAS COM INSTANT E PADRAO ISO
+    // 8601
     private Instant moment;
     private Integer orderStatus;
 
@@ -35,6 +39,55 @@ public class Order implements Serializable {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
+    @ManyToMany
+    @JoinTable(name = "tb_product_order", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<Product> products = new HashSet<>();
+
+    public Order() {
+    }
+    
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
+        super();
+        this.id = id;
+        this.moment = moment;
+        setOrderStatus(orderStatus);
+        ;
+        this.client = client;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Instant getMoment() {
+        return moment;
+    }
+    
+    public void setMoment(Instant moment) {
+        this.moment = moment;
+    }
+    
+    public User getClient() {
+        return client;
+    }
+    
+    public void setClient(User client) {
+        this.client = client;
+    }
+    
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+    
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null)
+        this.orderStatus = orderStatus.getCode();
+    }
+    
     public Payment getPayment() {
         return payment;
     }
@@ -42,51 +95,11 @@ public class Order implements Serializable {
     public void setPayment(Payment payment) {
         this.payment = payment;
     }
-
-    public Order(){
+    
+    public Set<Product> getProducts() {
+        return products;
     }
-
-    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
-        super();
-        this.id = id;
-        this.moment = moment;
-        setOrderStatus(orderStatus);;
-        this.client = client;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Instant getMoment() {
-        return moment;
-    }
-
-    public void setMoment(Instant moment) {
-        this.moment = moment;
-    }
-
-    public User getClient() {
-        return client;
-    }
-
-    public void setClient(User client) {
-        this.client = client;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return OrderStatus.valueOf(orderStatus);
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        if (orderStatus != null)
-        this.orderStatus = orderStatus.getCode();
-    }
-
+   
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -98,7 +111,7 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
-            return true;
+        return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())

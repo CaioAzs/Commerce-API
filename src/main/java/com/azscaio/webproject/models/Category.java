@@ -17,38 +17,38 @@ import jakarta.persistence.Table;
 public class Category {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
-    
-    public Category(){
+
+    public Category() {
     }
-    
+
     public Category(Long id, String name) {
         this.id = id;
         this.name = name;
     }
-    
+
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public Set<Product> getProducts() {
         return products;
     }
@@ -60,15 +60,15 @@ public class Category {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
-        return true;
+            return true;
         if (obj == null)
-        return false;
+            return false;
         if (getClass() != obj.getClass())
-        return false;
+            return false;
         Category other = (Category) obj;
         if (id == null) {
             if (other.id != null)

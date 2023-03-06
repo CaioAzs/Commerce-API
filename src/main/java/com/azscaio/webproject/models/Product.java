@@ -1,7 +1,10 @@
 package com.azscaio.webproject.models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,9 +17,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_product")
-public class Product{
+public class Product implements Serializable {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -28,7 +31,11 @@ public class Product{
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-    public Product(){
+    @JsonIgnore
+    @ManyToMany(mappedBy = "products")
+    private Set<Order> orders = new HashSet<>();
+    
+    public Product() {
     }
 
     public Product(Long id, String name, String description, Double price, String img_url) {
@@ -83,6 +90,11 @@ public class Product{
         return categories;
     }
 
+    public Set<Order> getOrders() {
+        return orders;
+    }
+    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -107,5 +119,7 @@ public class Product{
             return false;
         return true;
     }
-    
+
+
+
 }

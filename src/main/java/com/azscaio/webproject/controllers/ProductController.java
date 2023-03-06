@@ -20,13 +20,13 @@ public class ProductController {
     private ProductService ProductService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll(){
+    public ResponseEntity<List<Product>> findAll() {
         List<Product> list = ProductService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
+    public ResponseEntity<Product> findById(@PathVariable Long id) {
         Product Product = ProductService.findById(id);
         return ResponseEntity.ok().body(Product);
     }

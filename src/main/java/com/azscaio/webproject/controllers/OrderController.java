@@ -20,13 +20,13 @@ public class OrderController {
     private OrderService OrderService;
 
     @GetMapping
-    public ResponseEntity<List<Order>> findAll(){
+    public ResponseEntity<List<Order>> findAll() {
         List<Order> list = OrderService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Order> findById(@PathVariable Long id){
+    public ResponseEntity<Order> findById(@PathVariable Long id) {
         Order Order = OrderService.findById(id);
         return ResponseEntity.ok().body(Order);
     }
