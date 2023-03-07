@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.azscaio.webproject.models.Category;
 import com.azscaio.webproject.models.Order;
 import com.azscaio.webproject.models.OrderItem;
+import com.azscaio.webproject.models.Payment;
 import com.azscaio.webproject.models.Product;
 import com.azscaio.webproject.models.User;
 import com.azscaio.webproject.models.enums.OrderStatus;
@@ -69,16 +70,18 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, Instant.parse("2021-07-20T19:53:08Z"), OrderStatus.WAITING_PAYMENT, u2);
         Order o3 = new Order(null, Instant.parse("2023-01-20T19:53:08Z"), OrderStatus.CANCELED, u1);
 
-        // Payment pay1 = new Payment(null, Instant.parse("2020-06-20T20:53:08Z"), o1);
-        // o1.setPayment(pay1);
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
-
+        
         OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
         OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
         OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
         OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
-
+        
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+        
+        Payment pay1 = new Payment(null, Instant.parse("2020-06-20T20:53:08Z"), o1);
+        o1.setPayment(pay1);
+        orderRepository.save(o1);
     }
 }
