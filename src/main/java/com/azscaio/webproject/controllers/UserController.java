@@ -18,7 +18,6 @@ import com.azscaio.webproject.models.User;
 import com.azscaio.webproject.services.UserService;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
