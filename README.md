@@ -3,7 +3,7 @@
 </h6>
 
 <h1 align="center">
-    JAVA API 
+    COMMERCE API 
 </h1>
 
 Status: Under Development...🔥
