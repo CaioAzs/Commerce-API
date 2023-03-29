@@ -6,7 +6,7 @@
     COMMERCE API 
 </h1>
 
-Status: Under Development...🔥
+Status: FINALIZADO✅
 
 <p>API em java que implementa serviços de comércio. Cadastro de Usuário, produtos e suas categorias inseridas em SQL, com relacionamento complexo de tabelas.</p>
 
